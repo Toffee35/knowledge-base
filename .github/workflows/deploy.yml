@@ -1,0 +1,52 @@
+name: Build and Deploy Quartz
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Your Markdown Files
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Clone Quartz
+        run: git clone https://github.com/jackyzha0/quartz.git /tmp/quartz
+
+      - name: Populate Quartz Content
+        run: |
+          cp -r ./* /tmp/quartz/content/
+
+      - name: Install Dependencies and Build Quartz
+        run: |
+          cd /tmp/quartz
+          npm ci
+          npx quartz build
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/quartz/public
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
