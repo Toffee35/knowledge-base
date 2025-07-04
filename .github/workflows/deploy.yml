@@ -27,12 +27,14 @@ jobs:
 
       - name: Populate Quartz Content
         run: |
+          cp -r quartz/* /tmp/quartz/
+          rm -rf quartz .git .obsidian .github
           cp -r ./* /tmp/quartz/content/
 
       - name: Install Dependencies and Build Quartz
         run: |
           cd /tmp/quartz
-          npm ci
+          npm i
           npx quartz build
 
       - name: Upload Artifact
