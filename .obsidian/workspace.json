@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Тестовый запуск Gemini Cli.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Тестовый запуск Gemini Cli"
+              "title": "index"
             }
           }
         ]
@@ -180,7 +180,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "fe6f74558f70e84d",
+  "active": "988f7fd4904894bc",
   "lastOpenFiles": [
     "Тестовый запуск Gemini Cli.md"
   ]
